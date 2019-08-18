@@ -1,0 +1,11 @@
+{
+  "name": "lambda_serverless_tutorial",
+  "version": "1.0.0",
+  "description": "A tutorial",
+  "author": "ankur",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "serverless": "1.43.0"
+  }
+}
