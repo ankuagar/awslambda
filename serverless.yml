@@ -22,6 +22,9 @@ service: lambda-serverless-tutorial
 plugins:
   - serverless-python-requirements
 
+pythonRequirements:
+  dockerizePip: true
+
 provider:
   name: aws
   runtime: python3.7
