@@ -1,5 +1,7 @@
+import jinja2
 import json
 import logging
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 def lambda1(event, context):
