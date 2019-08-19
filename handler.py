@@ -2,7 +2,7 @@ import json
 import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-def hello(event, context):
+def lambda1(event, context):
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
@@ -23,3 +23,6 @@ def hello(event, context):
         "event": event
     }
     """
+
+def lambda2(event, context):
+    pass

@@ -19,6 +19,9 @@ service: lambda-serverless-tutorial
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-python-requirements
+
 provider:
   name: aws
   runtime: python3.7
@@ -73,18 +76,18 @@ functions:
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
     events:
-       - schedule:
-          name: my-schedule-event
-          description: a description of my scheduled event's purpose
-          rate: rate(2 minutes)
-          enabled: true
-          # Note, you can use only one of input, inputPath, or inputTransformer
-          input:
-            key1: value1
-            key2: value2
-#      - http:
-#          path: users/create
-#          method: get
+        # - schedule:
+        #   name: my-schedule-event
+        #   description: a description of my scheduled event's purpose
+        #   rate: rate(2 minutes)
+        #   enabled: true
+        #   # Note, you can use only one of input, inputPath, or inputTransformer
+        #   input:
+        #     key1: value1
+        #     key2: value2
+         - http:
+             path: users/create
+             method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
