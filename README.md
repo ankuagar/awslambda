@@ -20,11 +20,11 @@ npm notice created a lockfile as package-lock.json. You should commit this file.
 You should commit package-lock.json as well. Please see:
 [npm-install documentation](https://docs.npmjs.com/cli/install)
 
-6. You should also add serverless-python-requirements plugin to package.json. This allows us to bundle our Lambda dependencies in requirements.txt to be correctly deployed. This can be done using this command
+6. You should also add serverless-python-requirements plugin to package.json. This allows us to bundle our Lambda function dependencies in requirements.txt to be correctly deployed. This can be done using this command
 ```
 npm install --save-prod serverless-python-requirements
 ```
-or by manually editing the file package.json
+or by manually editing the file package.json. After this do `npm install` in the project folder to create an updated package-lock.json. It will change since you are modifying your package.json file.
 
 7.	Also create a Makefile (see the project Makefile) to do a cleaner deploy every time.
 
