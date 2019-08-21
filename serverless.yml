@@ -84,7 +84,7 @@ functions:
         - schedule:
           name: my-schedule-event
           description: a description of my scheduled event's purpose
-          rate: rate(1 minutes)
+          rate: rate(1 minute) #Different units are required for values of 1, such as minute, and values over 1, such as minutes.
           enabled: true
           # Note, you can use only one of input, inputPath, or inputTransformer
           input:
