@@ -32,6 +32,8 @@ provider:
   region: us-west-2
   accountid: ${env:accountid}
   stage: ${opt:stage}
+  timeout: 10 # The default is 6 seconds. Note: API Gateway current maximum is 30 seconds
+
 # you can overwrite defaults here
 
 
@@ -73,7 +75,23 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  my-lambda-function:
+  lambda-that-sleeps:
+    handler: handler.lambda2
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+    events:
+        - schedule:
+          name: my-schedule-event
+          description: a description of my scheduled event's purpose
+          rate: rate(1 minutes)
+          enabled: true
+          # Note, you can use only one of input, inputPath, or inputTransformer
+          input:
+            key1: value1
+            key2: value2
+
+  my-simple-lambda-function:
     handler: handler.lambda1
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
