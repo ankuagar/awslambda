@@ -34,6 +34,7 @@ provider:
   stage: ${opt:stage}
   timeout: 10 # The default is 6 seconds. Note: API Gateway current maximum is 30 seconds
 
+
 # you can overwrite defaults here
 
 
@@ -75,21 +76,20 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  lambda-that-sleeps:
+  lambda-that-simply-sleeps:
     handler: handler.lambda2
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
     events:
-        - schedule:
-          name: my-schedule-event
-          description: a description of my scheduled event's purpose
-          rate: rate(1 minute) #Different units are required for values of 1, such as minute, and values over 1, such as minutes.
-          enabled: true
-          # Note, you can use only one of input, inputPath, or inputTransformer
-          input:
-            key1: value1
-            key2: value2
+         - schedule:
+             name: schedule-event-for-lambda
+             description: 1 minute rate scheduler
+             rate: rate(1 minute) #Different units are required for values of 1, such as minute, and values over 1, such as minutes.
+             enabled: true
+             input: # Note, you can use only one of input, inputPath, or inputTransformer
+                key1: value1
+                key2: value2
 
   my-simple-lambda-function:
     handler: handler.lambda1
