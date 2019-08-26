@@ -22,8 +22,9 @@ service: lambda-serverless-tutorial
 plugins:
   - serverless-python-requirements
 
-pythonRequirements:
-  dockerizePip: true
+custom:
+    pythonRequirements:
+      dockerizePip: true
 
 provider:
   name: aws
