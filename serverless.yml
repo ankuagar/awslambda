@@ -84,7 +84,7 @@ provider:
 
 functions:
   lambda-that-simply-sleeps:
-    handler: handler.lambda2
+    handler: src/handler.lambda2
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -99,7 +99,7 @@ functions:
                 key2: value2
 
   my-simple-lambda-function:
-    handler: handler.lambda1
+    handler: src/handler.lambda1
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -114,8 +114,13 @@ functions:
         #     key1: value1
         #     key2: value2
          - http:
-             path: users/create
+             path: users/getep # to hit the get endpoint use: curl -v -X GET
              method: get
+         - http: GET getendpoint # path getendpoint for GET request (different syntax). to hit the get endpoint use: curl -v -X GET
+         - http:
+             path: users/postep # to hit the post endpoint use: curl -v -X POST
+             method: post
+         - http: POST postendpoint # path postendpoint for POST request (different syntax). to hit the post endpoint use: curl -v -X POST 'post-url'
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
