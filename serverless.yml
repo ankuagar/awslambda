@@ -44,6 +44,9 @@ provider:
 
 # you can overwrite defaults here
 
+# service wide environment variables
+  environment:
+    service_wide_env_variable: service-wide-env-variable-value
 
 
 # you can add statements to the Lambda function's IAM Role here
@@ -69,9 +72,6 @@ provider:
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
 # you can add packaging information here
 #package:
