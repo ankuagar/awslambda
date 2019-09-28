@@ -26,6 +26,12 @@ custom:
     pythonRequirements:
       dockerizePip: true
 
+package:
+  exclude:
+    - ./**
+  include:
+    - src/**
+
 provider:
   name: aws
   runtime: python3.7
