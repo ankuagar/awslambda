@@ -88,6 +88,8 @@ functions:
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
+    environment: # Function level environment variable
+      lambda_that_simply_sleeps_env_variable: lambda-that-simply-sleeps-env-variable-value
     events:
          - schedule:
              name: schedule-event-for-lambda
@@ -103,6 +105,8 @@ functions:
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
+    environment: # Function level environment variable
+      my_simple_lambda_function_env_variable: my-simple-lambda-function-env-variable-value
     events:
         # - schedule:
         #   name: my-schedule-event
