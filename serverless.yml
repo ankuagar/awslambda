@@ -51,12 +51,12 @@ provider:
 
 # you can add statements to the Lambda function's IAM Role here
 
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-      - logs:*
-      Resource:
-        - arn:aws:logs:${self:provider.region}:${self:provider.accountid}:*:*
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #     - logs:*
+  #     Resource:
+  #       - arn:aws:logs:${self:provider.region}:${self:provider.accountid}:*:*
 
 #    - Effect: "Allow"
 #      Action:
