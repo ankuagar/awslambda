@@ -50,13 +50,16 @@ provider:
 
 
 # you can add statements to the Lambda function's IAM Role here
+# Also by default, your Lambda functions have permission to create and write to CloudWatch logs.
+# see https://serverless.com/framework/docs/providers/aws/guide/iam/
 
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #     - logs:*
-  #     Resource:
-  #       - arn:aws:logs:${self:provider.region}:${self:provider.accountid}:*:*
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+       - sns:Publish
+      Resource:
+       #- !Ref DeadLetterQueueSNS # this is valid too
+       - Ref: DeadLetterQueueSNS # this is also valid
 
 #    - Effect: "Allow"
 #      Action:
@@ -88,6 +91,7 @@ functions:
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
+    onError: !Ref DeadLetterQueueSNS
     reservedConcurrency: 5 # optional, reserved concurrency limit for this function. By default, AWS uses account concurrency limit
     environment: # Function level environment variable
       lambda_that_simply_sleeps_env_variable: lambda-that-simply-sleeps-env-variable-value
@@ -175,3 +179,15 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+
+# The "Resources" your "Functions" use.  Raw AWS CloudFormation goes in here.
+resources:
+  Resources:
+    DeadLetterQueueSNS: # logical id
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: lambda-serverless-tutorial-dead-letter-queue
+        Subscription:
+          - Endpoint: "o6y8a7p3x6p4s0w3@snowflake.slack.com"
+            Protocol: "email"

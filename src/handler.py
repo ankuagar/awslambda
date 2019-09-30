@@ -42,3 +42,7 @@ def lambda2(event, context):
     for i in range(1200):
         logger.info("Iteration {}".format(i))
         time.sleep(1)
+
+# def lambda3(event, context):
+#     logger.info("Received event is {}".format(event))
+#     client = boto3.client('lambda')
