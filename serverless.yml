@@ -91,7 +91,7 @@ functions:
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
-    onError: !Ref DeadLetterQueueSNS
+    #onError: !Ref DeadLetterQueueSNS # commented out to avoid constant pings 
     reservedConcurrency: 5 # optional, reserved concurrency limit for this function. By default, AWS uses account concurrency limit
     environment: # Function level environment variable
       lambda_that_simply_sleeps_env_variable: lambda-that-simply-sleeps-env-variable-value
