@@ -91,7 +91,7 @@ functions:
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
-    #onError: !Ref DeadLetterQueueSNS # commented out to avoid constant pings 
+    #onError: !Ref DeadLetterQueueSNS # commented out to avoid constant pings
     reservedConcurrency: 5 # optional, reserved concurrency limit for this function. By default, AWS uses account concurrency limit
     environment: # Function level environment variable
       lambda_that_simply_sleeps_env_variable: lambda-that-simply-sleeps-env-variable-value
@@ -191,3 +191,56 @@ resources:
         Subscription:
           - Endpoint: "o6y8a7p3x6p4s0w3@snowflake.slack.com"
             Protocol: "email"
+    ExampleAPIGatewayRestAPI:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        ApiKeySourceType: HEADER
+        Description: An example API Gateway REST Api
+        EndpointConfiguration:
+          Types:
+              - REGIONAL
+        Name: RestAPIName
+        Parameters:
+            headername : headervalue
+
+    ExampleAPIGatewayUsagePlan:
+      Type: AWS::ApiGateway::UsagePlan
+      DependsOn: ExampleAPIGatewayDeployment # needed, otherwise the Stage (created in ExampleAPIGatewayDeployment) won't be available
+      Properties:
+        ApiStages:
+         - ApiId: !Ref ExampleAPIGatewayRestAPI
+           Stage: ${self:provider.stage}
+        Description: Example usage plan
+        Quota:
+          Limit: 5000
+          Period: MONTH
+        Throttle:
+          BurstLimit: 200
+          RateLimit: 100
+        UsagePlanName: UsagePlanName
+
+    ExampleAPIGatewayMethod:
+        Type: AWS::ApiGateway::Method
+        Properties:
+          AuthorizationType: NONE
+          Integration:
+              Type: MOCK
+              RequestTemplates:
+                  "application/json": "{\n \"statusCode\": 200\n}"
+              IntegrationResponses:
+                 - StatusCode: 200
+          MethodResponses:
+                 - StatusCode: 200
+          HttpMethod: POST
+          ResourceId: !GetAtt
+            - ExampleAPIGatewayRestAPI
+            - RootResourceId
+          RestApiId: !Ref ExampleAPIGatewayRestAPI
+
+    ExampleAPIGatewayDeployment: # you can't deploy to a stage if the API has no methods (GET, POST etc)
+      Type: AWS::ApiGateway::Deployment
+      DependsOn: ExampleAPIGatewayMethod
+      Properties:
+        RestApiId: !Ref ExampleAPIGatewayRestAPI
+        Description: Example deployment
+        StageName: ${self:provider.stage} # A name for the stage that API Gateway creates with this deployment. Use only alphanumeric characters.
